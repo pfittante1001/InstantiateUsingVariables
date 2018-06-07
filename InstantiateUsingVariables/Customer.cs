@@ -22,6 +22,12 @@ namespace InstantiateUsingVariables
             return savAcct;
         }
 
+        // This is the method you could add to support the Tell Dont Ask thing I mentioned:
+        public void AddCheckingAccount(Checking acct)
+        {
+            checkAcct.Add(acct);
+        }
+
         //check the checkAcct list object Name field against the user input and return that value
         public Checking GetChecking(string name)
         {

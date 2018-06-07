@@ -35,6 +35,22 @@ namespace InstantiateUsingVariables
                 {
                     
                     Checking checkAcct = new Checking(acctName, 1000);
+                    // Pete: I think you're just missing adding the new checkAcct to the customer's list.
+                    // If I add these two lines here I think it will do what you wanted:
+                    var allCheckingAccounts = newCust.GetCheckAccount();
+                    allCheckingAccounts.Add(checkAcct);
+
+                    // But!  The code I wrote above is violating the Tell Don't Ask principle.
+                    // I'm asking newCust for the checking accounts, and then I do something
+                    // to the checking accounts.  The idea with TDAP is that I should "Tell"
+                    // the newCust class that I want to add an account, and it should be responsible
+                    // for making that happen.  So, I'd refactor it to use something like this instead:
+                    //newCust.AddCheckingAccount(checkAcct);
+                    // That way I'm saying "Hey, newCust, you should add this new checking account" but
+                    // I don't know the details about how that happens.
+                    // Martin Fowler has a great article on it here:
+                    //  https://martinfowler.com/bliki/TellDontAsk.html
+
                     Console.WriteLine(newCust.GetCheckAccount().Exists(x => x.Name == acctName));
                     //This keeps coming up false even though I believe the object is being saved to the checking list
                     var userCkaccount = newCust.GetChecking(acctName); // Trying to find the account that i've created earlier
