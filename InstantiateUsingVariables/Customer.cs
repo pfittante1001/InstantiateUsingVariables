@@ -9,28 +9,50 @@ namespace InstantiateUsingVariables
     class Customer 
     {
         //trying to create lists of objects
-        List<Checking> checkAcct = new List<Checking>();
-        List<Saving> savAcct = new List<Saving>();
+        List<Checking> checkAccts = new List<Checking>();
+        List<Saving> savAccts = new List<Saving>();
 
-        //Getting the objects is the list
+       public void SetChecking(Checking check)
+        {
+            checkAccts.Add(check);
+        }
+        public void SetSaving(Saving save)
+        {
+            savAccts.Add(save);
+        }
+        //Getting the objects is the list 
         public List<Checking> GetCheckAccount()
         { 
-            return checkAcct;
+            return checkAccts;
         }
         public List<Saving> GetSaveAccount()
         {
-            return savAcct;
+            return savAccts;
         }
 
         //check the checkAcct list object Name field against the user input and return that value
+        
         public Checking GetChecking(string name)
         {
             
-            return checkAcct.Where(x => x.Name == name).FirstOrDefault();
+            return checkAccts.Where(x => x.Name == name).FirstOrDefault();
         }
         public Saving GetSaving(string name)
         {
-            return savAcct.Where(x => x.Name == name).FirstOrDefault();
+            return savAccts.Where(x => x.Name == name).FirstOrDefault();
+        }
+        public string ConvertUsername(string name, int accttype)
+        {
+
+            if (accttype == 1)
+            {
+                return name += "ck";
+
+            }
+            else
+            {
+                return name += "sv";
+            }
         }
     }
 }

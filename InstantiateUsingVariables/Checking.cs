@@ -20,7 +20,11 @@ namespace InstantiateUsingVariables
         {
             this.Name = userName;
             this.AcctBal = balance;
-            Console.WriteLine(Name);
+        }
+
+        public override void TransferFunds()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -8,13 +8,21 @@ namespace InstantiateUsingVariables
 {
     class Saving : Account
     {
+        
         public Saving()
         {
 
         }
-        public Saving(string userName)
+        public Saving(string userName, double balance)
         {
             this.Name = userName;
+            this.AcctBal = balance;
+        }
+
+
+        public override void TransferFunds()
+        {
+            throw new NotImplementedException();
         }
     }
 }
