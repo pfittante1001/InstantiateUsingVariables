@@ -10,15 +10,18 @@ namespace InstantiateUsingVariables
     {
         static void Main(string[] args)
         {
+            //Local variables 
             int userResponse;
             string acctName = "";
             int acctType;
             string exitNewUser = "no";
             string exitMainMenu = "no";
             string exitExistingMenu = "no";
+
+            //Instantiate Customer Class
             Customer Cust = new Customer();
 
-
+            //While loop for main menu
             Console.WriteLine("Welcome to the Bank of Ukraine");
             while (exitMainMenu.Equals("no"))
             {
@@ -29,6 +32,8 @@ namespace InstantiateUsingVariables
                 userResponse = int.Parse(Console.ReadLine());
                 Console.Clear();
                 exitExistingMenu = "no";
+
+                //Logic to enter do while loop. Allows user to enter multiple accounts
                 if (userResponse == 1)
                 {
                     do
@@ -44,6 +49,7 @@ namespace InstantiateUsingVariables
                         acctType = int.Parse(Console.ReadLine());
                         Console.Clear();
 
+                        // Instantiates checking class based on users name. Saves the object to a List<Checking>.
                         if (acctType == 1)
                         {
 
@@ -58,6 +64,8 @@ namespace InstantiateUsingVariables
                         }
                         else
                         {
+                            // Instantiates saving class based on users name. Saves the object to a List<Saving>.
+
                             Console.WriteLine("How much will you deposit into your saving account today?");
                             double initDeposit = double.Parse(Console.ReadLine());
                             acctName = Cust.ConvertUsername(acctName, acctType);
@@ -72,7 +80,7 @@ namespace InstantiateUsingVariables
                         exitNewUser = Console.ReadLine().ToLower();
                         Console.Clear();
 
-                    } while (exitNewUser.Equals("yes"));
+                    } while (exitNewUser.Equals("yes"));//End of the add new account do while loop
                 }
                 else if (userResponse == 2)
                 {
@@ -80,7 +88,7 @@ namespace InstantiateUsingVariables
                         Console.WriteLine("Please enter the name on your account.");
                         acctName = Console.ReadLine().ToLower();
                         Console.Clear();
-
+                    //While loop used to manage existing user accounts
                     while (exitExistingMenu.Equals("no"))
                     {    
                         Console.WriteLine("Which account would you like to manage?");
@@ -89,10 +97,13 @@ namespace InstantiateUsingVariables
                         acctType = int.Parse(Console.ReadLine());
                         Console.Clear();
 
+                        //Manage checking account. Checks List<Checking> for user account object. Sets name = to user name.
                         if (acctType == 1) {
 
+                            //This method places a ck or sv on the end of the username
                             var checkAcctName = Cust.ConvertUsername(acctName, acctType);
                             
+                            //Checks the user account objects to ensure account exists
                             if (Cust.GetCheckAccount().Exists(x => x.Name == checkAcctName))
                             {
                                 Console.WriteLine("Please select from the following menus options.");
@@ -100,12 +111,17 @@ namespace InstantiateUsingVariables
                                 Console.WriteLine("Select 2 to make a deposit into your checking account.");
                                 Console.WriteLine("Select 3 to make a withdrawal from your checking account.");
                                 string SavAcctName = Cust.ConvertUsername(acctName, 2);
+                                
+                                //Checks the user account objects to ensure account exists
+                                //This logic will check List<Saving> to ensure a saving account exists. If so, the option to transfer funds appears.
                                 if (Cust.GetSaveAccount().Exists(x => x.Name == SavAcctName))
                                 { 
                                     Console.WriteLine("Select 4 to transfer funds to your savings account.");
                                 }
                                 int accountMenuChoice = int.Parse(Console.ReadLine());
                                 Console.Clear();
+
+                                //Logic to perform account manage menu options
                                 switch (accountMenuChoice)
                                 {
                                     case 1:
@@ -150,9 +166,11 @@ namespace InstantiateUsingVariables
                         }
                         else if (acctType == 2)
                         {
-
+                            
+                            //This method places a ck or sv on the end of the username
                             var saveAcctName = Cust.ConvertUsername(acctName, acctType);
-
+                            
+                            //Manage saving account. Checks List<Saving> for user account object. Sets name = to user name.
                             if (Cust.GetSaveAccount().Exists(x => x.Name == saveAcctName))
                             {
                                 Console.WriteLine("Please select from the following menus options.");
@@ -160,12 +178,16 @@ namespace InstantiateUsingVariables
                                 Console.WriteLine("Select 2 to make a deposit into your saving account.");
                                 Console.WriteLine("Select 3 to make a withdrawal from your savings account.");
                                 string checkAcctName = Cust.ConvertUsername(acctName, 2);
+                                
+                                //Checks the user account objects to ensure account exists
+                                //This logic will check List<Checking> to ensure a checking account exists. If so, the option to transfer funds appears.
                                 if (Cust.GetCheckAccount().Exists(x => x.Name == checkAcctName))
                                 {
                                     Console.WriteLine("Select 4 to transfer funds to your checking account.");
                                 }
                                 int accountMenuChoice = int.Parse(Console.ReadLine());
 
+                                //Logic to perform account manage menu options
                                 switch (accountMenuChoice)
                                 {
                                     case 1:
@@ -217,7 +239,7 @@ namespace InstantiateUsingVariables
                                 }
                             }
                         }
-                        Console.WriteLine("Type yes exit or no manage another account?");
+                        Console.WriteLine("Type yes exit or no manage another account?");//End manage account while loop
                         exitExistingMenu = Console.ReadLine();
                         Console.Clear();
                     }
